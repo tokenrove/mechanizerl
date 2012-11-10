@@ -50,7 +50,7 @@ make_request(Request=#request{url=Url,content_type=Content_Type}, State=#state{}
                    undefined -> {Url, Request#request.headers};
                    _ -> {Url, Request#request.headers, Content_Type, Request#request.body}
                end,
-    {ok, {{_Version, Status, _Reason}, Headers, Body}} = httpc:request(Request#request.method, ReqTuple, [], [], State#state.profile),
+    {ok, {{_Version, Status, _Reason}, Headers, Body}} = httpc:request(Request#request.method, ReqTuple, [{autoredirect,false}], [], State#state.profile),
     ProcessedHeaders = [{list_to_atom(string:to_lower(H)),V} || {H,V} <- Headers],
     case proplists:get_value(location, ProcessedHeaders) of
         Location when undefined =/= Location andalso Status >= 300 andalso Status < 400 ->
