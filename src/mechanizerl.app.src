@@ -1,0 +1,16 @@
+%%-*- mode: erlang -*-
+{application, mechanizerl,
+ [
+  {description, "Web testing tool"},
+  {vsn, "1"},
+  {modules, []},
+  {registered, [ mechanizerl ]},
+  {applications, [
+                  kernel,
+                  stdlib,
+                  inets,
+                  xmerl
+                 ]},
+  {mod, { mechanizerl, [] }},
+  {env, []}
+ ]}.

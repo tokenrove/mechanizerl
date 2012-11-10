@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+  <body>
+    <form name="simple-with-get" action="/erl/esi_callbacks:echo" method="GET">
+      <input name="implicit_type" />
+      <input type="email" name="email" />
+      <input type="checkbox" name="checkboxen" value="1" />
+      <input type="checkbox" name="checkboxen" value="2" />
+      <input type="hidden" name="hidden" value="secret" />
+      <input type="checkbox" name="checkboxen" value="3" />
+      <input type="checkbox" name="checkboxen" value="4" />
+      <input type="radio" name="radio" value="one" />
+      <input type="radio" name="radio" value="or" checked="checked" />
+      <input type="radio" name="radio" value="the" />
+      <input type="radio" name="radio" value="other" />
+      <select name="single_select">
+        <optgroup>
+          <option>implicit value</option>
+          <option value="explicit">explicit value</option>
+          <option value="another_explicit" />
+        </optgroup>
+      </select>
+
+      <select name="multiple_select" multiple="multiple">
+        <optgroup>
+          <option>implicit value</option>
+          <option value="explicit">explicit value</option>
+          <option value="another_explicit" />
+        </optgroup>
+      </select>
+      <input type="submit" />
+    </form>
+
+    <form id="simple" name="simple-with-post" action="/erl/esi_callbacks:echo" method="POST">
+      <input name="implicit_type" />
+      <input type="email" name="email" />
+      <input type="checkbox" name="checkboxen" value="1" />
+      <input type="checkbox" name="checkboxen" value="2" />
+      <input type="hidden" name="hidden" value="secret" />
+      <input type="checkbox" name="checkboxen" value="3" />
+      <input type="checkbox" name="checkboxen" value="4" />
+      <input type="radio" name="radio" value="one" />
+      <input type="radio" name="radio" value="or" checked="checked" />
+      <input type="radio" name="radio" value="the" />
+      <input type="radio" name="radio" value="other" />
+      <select name="single_select">
+        <optgroup>
+          <option>implicit value</option>
+          <option value="explicit">explicit value</option>
+          <option value="another_explicit" />
+        </optgroup>
+      </select>
+      <select name="multiple_select" multiple="multiple">
+        <optgroup>
+          <option>implicit value</option>
+          <option value="explicit">explicit value</option>
+          <option value="another_explicit" />
+        </optgroup>
+      </select>
+      <input type="submit" />
+    </form>
+
+    <form name="pre-filled" action="/erl/esi_callbacks:echo" method="GET">
+      <input name="implicit_type" value="implicit" />
+      <input type="email" name="email" value="an.email@example.moc" />
+      <input type="checkbox" name="checkboxen" value="1" />
+      <input type="checkbox" name="checkboxen" value="2" checked="checked" />
+      <input type="hidden" name="hidden" value="secret" />
+      <input type="checkbox" name="checkboxen" value="3" />
+      <input type="checkbox" name="checkboxen" value="4" checked="checked" />
+      <input type="radio" name="radio" value="one" />
+      <input type="radio" name="radio" value="or" checked="checked" />
+      <input type="radio" name="radio" value="the" />
+      <input type="radio" name="radio" value="other" />
+      <select name="single_select">
+        <optgroup>
+          <option>implicit value</option>
+          <option value="explicit" selected="selected">explicit value</option>
+          <option value="another_explicit" />
+        </optgroup>
+      </select>
+
+      <select name="multiple_select" multiple="multiple">
+        <optgroup>
+          <option selected="selected">implicit value</option>
+          <option value="explicit" selected="selected">explicit value</option>
+          <option value="another_explicit" />
+        </optgroup>
+      </select>
+      <input type="submit" />
+    </form>
+  </body>
+</html>
