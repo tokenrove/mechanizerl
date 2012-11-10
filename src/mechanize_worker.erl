@@ -185,7 +185,11 @@ update_for_response({Request, Response=#response{headers=Headers}}, #state{profi
                    profile=Profile,
                    content_type=ContentType},
     case {ContentType,length(Response#response.body)} of
-        {{"text", "html"}, X} when X > 0 -> parse_html(Response#response.body, State);
+        {{"text", "html"}, X} when X > 0 ->
+            try parse_html(Response#response.body, State) of
+                S -> S
+            catch _:_ -> State
+            end;
         _ -> State
     end.
 
