@@ -1,2 +1,6 @@
 logs/
+ebin/
+.eunit/
+erl_crash.dump
 *.beam
+*~
