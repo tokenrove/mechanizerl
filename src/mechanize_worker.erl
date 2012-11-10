@@ -19,6 +19,7 @@ init(Profile) ->
         {ok, _} -> ok;
         {error, {already_started, _}} -> ok
     end,
+    httpc:reset_cookies(Profile),
     httpc:set_options([{cookies, enabled}], Profile),
     {ok, #state{profile=Profile}}.
 
