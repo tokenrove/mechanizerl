@@ -53,10 +53,9 @@ make_request(Request=#request{url=Url,content_type=Content_Type}, State=#state{}
     {ok, {{_Version, Status, _Reason}, Headers, Body}} = httpc:request(Request#request.method, ReqTuple, [], [], State#state.profile),
     ProcessedHeaders = [{list_to_atom(string:to_lower(H)),V} || {H,V} <- Headers],
     case proplists:get_value(location, ProcessedHeaders) of
-        undefined ->
-            #response{status=Status, headers=ProcessedHeaders, body=Body};
-        Location when Status >= 300 andalso Status < 400 ->
-            make_request(#request{url=expand_relative_url(Location,State),headers=[],method=get}, State, RedirectCount+1)
+        Location when undefined =/= Location andalso Status >= 300 andalso Status < 400 ->
+            make_request(#request{url=expand_relative_url(Location,State),headers=[],method=get}, State, RedirectCount+1);
+        _ -> {Request,#response{status=Status, headers=ProcessedHeaders, body=Body}}
     end.
 
 parse_content_type(Headers) ->
@@ -193,8 +192,8 @@ return_ok_on_success(#response{status=Status}, State) ->
     {if Status >= 200 andalso Status < 400 -> ok; true -> {error, Status} end, State}.
 
 handle_http_method_call(Request, State) ->
-    Response = make_request(Request, State),
-    {Reply, NewState} = return_ok_on_success(Response, update_for_response({Request, Response}, State)),
+    {ReqOut,Response} = make_request(Request, State),
+    {Reply, NewState} = return_ok_on_success(Response, update_for_response({ReqOut, Response}, State)),
     {reply, Reply, NewState}.
 handle_http_method_call(Method, Url, State) ->
     handle_http_method_call(#request{method=Method,
