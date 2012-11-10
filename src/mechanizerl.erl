@@ -12,7 +12,7 @@
 %% Page-fetching methods
 -export([get/2,head/2,put/4,post/4,delete/2,reload/1,back/1]).
 %% Status methods
--export([uri/1,response/1,status/1,content_type/1,base/1,forms/1,
+-export([uri/1,header/2,response/1,status/1,content_type/1,base/1,forms/1,
          current_form/1,links/1,is_html/1,is_json/1,is_xml/1, title/1]).
 %% Content-handling methods
 -export([body/1,body_xml/1,text/1]).
@@ -87,6 +87,18 @@ uri({?MODULE,Pid}) ->
         #request{url=Url} -> Url;
         _ -> undefined
     end.
+
+%% @doc Returns the matching header in the current response, or
+%% undefined.
+-spec header(atom()|string(), handle()) -> undefined | string().
+header(Key, Handle) when is_atom(Key) ->
+    case response(Handle) of
+        undefined -> undefined;
+        {_, Headers, _} ->
+            proplists:get_value(Key, Headers)
+    end;
+header(Key, Handle) -> header(list_to_atom(string:to_lower(Key)), Handle).
+
 
 %% @doc Returns the tuple {Status, Headers, Body} of the current
 %% response.
