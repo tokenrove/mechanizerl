@@ -19,6 +19,7 @@ all() ->
     [{group,groups}].
 
 init_per_suite(Config) ->
+    mechanizerl:start(),
     DataDir = ?config(data_dir, Config),
     {ok, Pid} = inets:start(httpd, [{port,0},
                                     {server_name,"localhost"},
